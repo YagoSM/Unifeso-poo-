@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -31,6 +32,18 @@ namespace Av2.api
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Av2.api", Version = "v1" });
+                var filePath = Path.Combine(System.AppContext.BaseDirectory, "Av2.api.xml");
+                c.IncludeXmlComments(filePath);
+            });
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.Authority = "https://unifesopooav2.us.auth0.com/";
+                options.Audience = "https://unifeso-poo-api.com.br";
             });
         }
 

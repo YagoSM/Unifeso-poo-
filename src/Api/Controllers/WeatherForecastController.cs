@@ -23,6 +23,10 @@ namespace Av2.api.Controllers
             _logger = logger;
         }
 
+/// <summary>
+/// Just for Documentation!
+/// </summary>
+
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
