@@ -36,15 +36,15 @@ namespace Av2.api
                 c.IncludeXmlComments(filePath);
             });
 
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(options =>
-            {
-                options.Authority = "https://unifesopooav2.us.auth0.com/";
-                options.Audience = "https://unifeso-poo-api.com.br";
-            });
+            // services.AddAuthentication(options =>
+            // {
+            //     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            //     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            // }).AddJwtBearer(options =>
+            // {
+            //     options.Authority = "https://unifesopooav2.us.auth0.com/";
+            //     options.Audience = "https://unifeso-poo-api.com.br";
+            // });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,12 +60,13 @@ namespace Av2.api
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            // app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                    // .RequireAuthorization();
             });
         }
     }
