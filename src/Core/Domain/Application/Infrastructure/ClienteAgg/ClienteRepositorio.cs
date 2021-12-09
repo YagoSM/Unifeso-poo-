@@ -4,7 +4,7 @@ namespace unifesopoo.Api.Core.Infrastructure.ClienteAgg.Repositories{
 
     public class ClienteRepositorio : IClienteRepositorio
     {
-        private static list<Cliente> _cliente = new list<Cliente>();
+        private  List<Cliente> _cliente = new List<Cliente>();
         public void Adicionar(Cliente cliente)
         {
             _cliente.Add(cliente);
@@ -13,7 +13,10 @@ namespace unifesopoo.Api.Core.Infrastructure.ClienteAgg.Repositories{
         {
             throw new System.NotImplementedException();
         }
-
+        public ICollection<Cliente> ChecarNome(string nome)
+        {
+            return _clientes.Where(cliente => cliente.Nome.Contains(nome, StringComparison.OrdinalIgnoreCase));
+        }
 
     }
 

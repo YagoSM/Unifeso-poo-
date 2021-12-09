@@ -22,8 +22,14 @@ namespace Av2.api.Controllers
        [HttpPost]
        public IActionResult Add(AdicionarCliente adicionarCliente)
        {
-           _appService.Adicionar(adicionarCliente);
-           return Created(Request.Path, cliente)
+           var cliente =_appService.Adicionar(adicionarCliente);
+           return Created(Request.Path, cliente);
+       }
+       [HttpGet]
+       public IActionResult Querry(string nome)
+       {
+           var clientes = _appService.ChecarNome(nome);
+           return Ok(clientes);
        }
     }
 }

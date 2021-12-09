@@ -13,4 +13,9 @@ using unifesopoo.Api.Core.Application.ClienteAgg.AppServices;
             _repositorio.Adicionar(cliente);
             return cliente;
         }
+
+        public ICollection<Cliente> ChecarNome(string nome)
+        {
+            return _repositorio.ChecarNome(nome);
+        }
     }

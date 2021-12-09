@@ -36,6 +36,8 @@ namespace Av2.api
                 c.IncludeXmlComments(filePath);
             });
 
+            services.AddSingleton<IClienteRepositorio,ClienteRepositorio>();
+            services.AddTransient<ProdutoAppService>();
             // services.AddAuthentication(options =>
             // {
             //     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
