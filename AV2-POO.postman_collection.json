@@ -1,0 +1,65 @@
+{
+	"info": {
+		"_postman_id": "2ad11a74-e90e-4410-99c7-35e5defc70b3",
+		"name": "AV2-POO",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://unifesopooav2.us.auth0.com/oauth/token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					},
+					{
+						"key": "Cookie",
+						"value": "did=s%3Av0%3Aa39a30c0-41b5-11ec-b988-dd720c179345.s%2Bf1%2FZgftb6Xwsr8e6q8%2FUWPKHfeB8xyY6sbRrh%2ByDI; did_compat=s%3Av0%3Aa39a30c0-41b5-11ec-b988-dd720c179345.s%2Bf1%2FZgftb6Xwsr8e6q8%2FUWPKHfeB8xyY6sbRrh%2ByDI"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "8D9au8Afg9ktjXBHWXFgeCLLZA3SeKbx",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "8Wo6HTPBWbI8djT0Ghqikg7KevhnzFA3Rej_qK1Lme3EEf5zL3xJ_QKdyXn2w3vq",
+							"type": "text"
+						},
+						{
+							"key": "audience",
+							"value": "https://unifeso-poo-api.com.br",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://unifesopooav2.us.auth0.com/oauth/token",
+					"protocol": "https",
+					"host": [
+						"unifesopooav2",
+						"us",
+						"auth0",
+						"com"
+					],
+					"path": [
+						"oauth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
