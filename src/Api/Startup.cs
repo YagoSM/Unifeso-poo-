@@ -55,10 +55,10 @@ namespace Av2.api
             services.AddSingleton<IClienteRepositorio,ClienteRepositorio>();
             services.AddTransient<ClienteAppService>();
             services.AddSingleton<IClienteParseFactory, ClienteParseFactory>();
-            services.AddDbContext<PedidoDbContext>(options =>{
+            services.AddDbContext<ClienteDbContext>(options =>{
                 options.UseSqlite(Configuration.GetConnectionString("sqlite"));
             });
-            services.AddScoped<IUnitOfWork>(provider=> provider.GetService<PedidoDbContext>());
+            services.AddScoped<IUnitOfWork>(provider=> provider.GetService<ClienteDbContext>());
 
 
             services.AddAuthentication(options =>
@@ -73,7 +73,7 @@ namespace Av2.api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, PedidoDbContext dbContext, ILogger<Startup> logger, IHostApplicationLifetime applicationLifetime)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ClienteDbContext dbContext, ILogger<Startup> logger, IHostApplicationLifetime applicationLifetime)
         {
             applicationLifetime.ApplicationStarted.Register(() =>
             {

@@ -5,7 +5,7 @@ namespace unifesopoo.Api.Core.Infrastructure.ClienteAgg.Repositories{
     public class ClienteRepositorio : IClienteRepositorio
     {
         
-        public ClienteRepositorio(PedidoDbContext context)
+        public ClienteRepositorio(ClienteDbContext context)
         {
             _context = context;
         }
