@@ -4,10 +4,16 @@ namespace unifesopoo.Api.Core.Infrastructure.ClienteAgg.Repositories{
 
     public class ClienteRepositorio : IClienteRepositorio
     {
+        
+        public ClienteRepositorio(PedidoDbContext context)
+        {
+            _context = context;
+        }
+        
         private  List<Cliente> _cliente = new List<Cliente>();
         public void Adicionar(Cliente cliente)
         {
-            _cliente.Add(cliente);
+            _context.Set<Cliente>().Add(Cliente);
         }
         public ICollection<Cliente> ChecarNome(string nome)
         {
@@ -17,10 +23,10 @@ namespace unifesopoo.Api.Core.Infrastructure.ClienteAgg.Repositories{
         {
             if(string.IsNullOrWhiteSpace(nome)) 
             {
-                return _cliente.ToImmutableList();
+                return _context.Set<Cliente>().ToImmutableList();
             }
             
-            return _clientes.Where(cliente => cliente.Nome.Contains(nome, StringComparison.OrdinalIgnoreCase))
+            return _context.Set<Cliente>().Where(cliente => cliente.Nome.Contains(nome, StringComparison.OrdinalIgnoreCase))
             
                 .ToImmutableList();
             

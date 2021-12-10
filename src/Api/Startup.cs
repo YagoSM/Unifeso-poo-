@@ -15,7 +15,7 @@ using Microsoft.OpenApi.Models;
 using unifesopoo.Api.Core.Infrastructure.ClienteAgg.Repositories;
 using unifesopoo.Api.Core.Domain.ClienteAgg.Repositories;
 using unifesopoo.Api.Core.Application.ClienteAgg.AppServices;
-
+using unifesopoo.Api.Core.Infrastructure.Shared;
 
 
 
@@ -34,6 +34,18 @@ namespace Av2.api
         public void ConfigureServices(IServiceCollection services)
         {
 
+              services.AddLogging(builder => builder.AddSeq());
+            services.AddCors(options =>
+            {
+                options.AddPolicy("all", builder =>
+                {
+                    builder
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowAnyOrigin();
+                });
+            });
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -45,23 +57,31 @@ namespace Av2.api
             services.AddSingleton<IClienteRepositorio,ClienteRepositorio>();
             services.AddTransient<ClienteAppService>();
             services.AddSingleton<IClienteParseFactory, ClienteParseFactory>();
+            services.AddDbContext<PedidoDbContext>(options =>{
+                options.UseSqlite(Configuration.GetConnectionString("sqlite"));
+            });
+            services.AddScoped<IUnitOfWork>(provider=> provider.GetService<PedidoDbContext>());
 
-            // services.AddAuthentication(options =>
-            // {
-            //    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            //     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            // }).AddJwtBearer(options =>
-            // {
-            //     options.Authority = "https://unifesopooav2.us.auth0.com/";
-            //     options.Audience = "https://unifeso-poo-api.com.br";
-            // });
+
+            services.AddAuthentication(options =>
+             {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+             {
+                options.Authority = "https://unifesopooav2.us.auth0.com/";
+                options.Audience = "https://unifeso-poo-api.com.br";
+             });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,PedidoDbContext dbContext)
         {
             if (env.IsDevelopment())
             {
+                
+                dbContext.Database.EnsureCreated();
+                dbContext.Database.Migrate();
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Av2.api v1"));
@@ -70,13 +90,13 @@ namespace Av2.api
             app.UseHttpsRedirection();
 
             app.UseRouting();
-            // app.UseAuthentication();
+            app.UseAuthentication();
             app.UseAuthorization();
-
+            app.UseCors("all");
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                    // .RequireAuthorization();
+                    .RequireAuthorization();
             });
         }
     }

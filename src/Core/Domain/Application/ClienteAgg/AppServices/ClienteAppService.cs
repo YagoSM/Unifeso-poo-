@@ -7,15 +7,19 @@ using unifesopoo.Api.Core.Domain.ClienteAgg.Repositories;
         private readonly IClienteRepositorio _repositorio;
         private readonly IParseFactory _parseFactory;
         
-        public ClienteAppService(IClienteRepositorio repositorio,IClienteParseFactory parseFactory)
+        private readonly IUnitOfWork _unitOfWork;
+
+        public ClienteAppService(IClienteRepositorio repositorio,IClienteParseFactory parseFactory,IUnitOfWork unitOfWork)
         {
             _repositorio = repositorio;
             _parseFactory = parseFactory;
+            _unitOfWork = unitOfWork;
         }
         public IClienteView Adicionar(IAdicionarCliente adicionarCliente)
         {
             var cliente = new Client(adicionarCliente.Nome,adicionarCliente.Cpf,adicionarCliente.NumeroConta);
             _repositorio.Adicionar(cliente);
+            _unitOfWork.SaveChanges();
             return _parseFactory.GetClienteParse().Parse(cliente);
         }
 
