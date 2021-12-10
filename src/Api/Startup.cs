@@ -32,7 +32,7 @@ namespace Av2.api
         public void ConfigureServices(IServiceCollection services)
         {
 
-              services.AddLogging(builder => builder.AddSeq());
+            services.AddLogging(builder => builder.AddSeq());
             services.AddCors(options =>
             {
                 options.AddPolicy("all", builder =>
@@ -73,8 +73,23 @@ namespace Av2.api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,PedidoDbContext dbContext)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, PedidoDbContext dbContext, ILogger<Startup> logger, IHostApplicationLifetime applicationLifetime)
         {
+            applicationLifetime.ApplicationStarted.Register(() =>
+            {
+                logger.LogInformation("Application started");
+            });
+            
+            applicationLifetime.ApplicationStopping.Register(() =>
+            {
+                logger.LogInformation("Application stopping");
+            });
+            
+            applicationLifetime.ApplicationStopped.Register(() =>
+            {
+                logger.LogInformation("Application stopped");
+            });
+
             if (env.IsDevelopment())
             {
                 
