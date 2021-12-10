@@ -90,12 +90,15 @@ namespace Av2.api
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseMiddleware<ErrorHandlingMiddleware>();
             app.UseCors("all");
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllers()
                     .RequireAuthorization();
             });
         }
     }
+
+    
 }

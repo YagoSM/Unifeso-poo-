@@ -13,7 +13,7 @@ namespace unifesopoo.Api.Controllers.Parsers
             return new ClienteParser();
         }
 
-        public IParser<ClienteParseFactory IClienteView> GetClienteReportParse()
+        public IParser<ClienteParseFactory,IClienteView> GetClienteReportParse()
         {
             return new ClienteReportParser();
         }

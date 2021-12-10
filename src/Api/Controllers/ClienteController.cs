@@ -27,13 +27,13 @@ namespace Av2.api.Controllers
        public IActionResult Add(AdicionarClienteDto adicionarClienteDto)
        {
            var cliente =_appService.Adicionar(adicionarClienteDto);
-           return Created(Request.Path, cliente);
+           return cliente.AsResponse(HttpStatusCode.Created);
        }
        [HttpGet]
        public IActionResult Querry(string nome)
        {
            var clientes = _appService.ChecarNome(nome);
-           return Ok(clientes);
+           return cliente.AsResponse(HttpStatusCode.OK);
        }
 
         [HttpGet("{id}")]

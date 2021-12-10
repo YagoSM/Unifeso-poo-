@@ -2,6 +2,7 @@ using unifesopoo.Api.Core.Application.ClienteAgg.AppServices;
 using unifesopoo.Api.Core.Domain.ClienteAgg.Entities;
 using unifesopoo.Api.Core.Domain.ClienteAgg.Repositories;
 
+namespace unifesopoo.Api.Core.Application.ClienteAgg.AppServices{
     public class ClienteAppService
     {
         private readonly IClienteRepositorio _repositorio;
@@ -56,3 +57,13 @@ using unifesopoo.Api.Core.Domain.ClienteAgg.Repositories;
             _unitOfWork.SaveChanges();
         }
     }
+
+
+    public class NotFoundException: Exception
+    {
+        public NotFoundException(string entityName,int cpf) : base(message"O {entityName} não foi encontrado.")
+        {
+            Data.Add(nameof(id),id);
+        }
+    }
+}
