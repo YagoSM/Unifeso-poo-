@@ -5,7 +5,6 @@ public interface IClienteView
     string Nome {get;}
     int Cpf {get;}
     int NumeroConta {get;}
-
     string Status {get;}
 }
 }

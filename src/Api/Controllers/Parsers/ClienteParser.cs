@@ -11,9 +11,10 @@ public class ClienteReportParser : IParser<Cliente,ICliente>
     {
         return new ClienteDto
         {
-            Nome = cliente.Nome,
-            Cpf = cliente.Cpf,
-            NumeroConta = cliente.NumeroConta
+            Nome        = cliente.Nome,
+            Cpf         = cliente.Cpf,
+            NumeroConta = cliente.NumeroConta,
+            Status      = cliente.Status
         };
     }
 }

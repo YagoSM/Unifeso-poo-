@@ -17,8 +17,6 @@ using unifesopoo.Api.Core.Domain.ClienteAgg.Repositories;
 using unifesopoo.Api.Core.Application.ClienteAgg.AppServices;
 using unifesopoo.Api.Core.Infrastructure.Shared;
 
-
-
 namespace Av2.api
 {
     public class Startup

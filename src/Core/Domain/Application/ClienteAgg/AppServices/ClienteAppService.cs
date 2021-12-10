@@ -6,7 +6,6 @@ using unifesopoo.Api.Core.Domain.ClienteAgg.Repositories;
     {
         private readonly IClienteRepositorio _repositorio;
         private readonly IParseFactory _parseFactory;
-        
         private readonly IUnitOfWork _unitOfWork;
 
         public ClienteAppService(IClienteRepositorio repositorio,IClienteParseFactory parseFactory,IUnitOfWork unitOfWork)
@@ -26,17 +25,34 @@ using unifesopoo.Api.Core.Domain.ClienteAgg.Repositories;
         public ICollection<IClienteView> ChecarNome(string nome)
         {
             var clientes = _repositorio.ChecarNome(nome);
-            
-            /*var clientes =  _repositorio.ChecarNome(nome);
-            var result = new List<IprodutoView>();
-            for (int i=0; i < clientes.Count; i++)
-            {
-                var cliente = cliente.ElementAt(i);
-                var dto = _parser.Parse(Cliente);
-                result.Add(dto);
-            }
-            return result;
-            */
+
             return clientes.Select(_parseFactory.GetClienteReportParse().Parse).ToImmutableList();
+        }
+
+        public IClienteView ObterPeloCPF(int cpf)
+        {
+            var cliente = _repositorio.ObterPeloCPF(cpf);
+
+            if (cliente == null)
+            {
+                throw new NotFoundException(nameof(cliente), cpf);
+            }
+            
+            return _parseFactory.GetClienteParse().Parse(cliente);
+        }
+
+        public IClienteView Atualizar(int cpf, AtualizarClienteDto atualizarCliente)
+        {
+            var cliente = _repositorio.ObterPeloCPF(cpf);
+            cliente.Atualizar(atualizarCliente);
+            _unitOfWork.SaveChanges();
+            return _parseFactory.GetClienteParse().Parse(cliente);
+        }
+
+        public void Deletar(int cpf)
+        {
+            var produto = _repositorio.ObterPeloCPF(cpf);
+            produto.Deletar();
+            _unitOfWork.SaveChanges();
         }
     }

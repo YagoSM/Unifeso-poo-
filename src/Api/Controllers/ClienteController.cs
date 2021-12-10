@@ -36,8 +36,27 @@ namespace Av2.api.Controllers
            return Ok(clientes);
        }
 
+        [HttpGet("{id}")]
+        public IActionResult GetByCPF(int cpf)
+        {
+            var cliente = _appService.ObterPeloCpf(cpf);
+            return cliente.AsResponse(HttpStatusCode.OK);
+        }
        
+       [HttpPut("{id}")]
+        public IActionResult Atualizar(int cpf, AtualizarClienteDto atualizarCliente)
+        {
+            var cliente = _appService.Atualizar(cpf, atualizarCliente);
+            return cliente.AsResponse(HttpStatusCode.OK);
+        }
 
+        [HttpDelete("{id}")]
+
+        public IActionResult Deletar(int cpf)
+        {
+            _appService.Deletar(cpf);
+            return NoContent();
+        }
        
     }
 }
