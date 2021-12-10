@@ -15,7 +15,16 @@ namespace unifesopoo.Api.Core.Infrastructure.ClienteAgg.Repositories{
         }
         public ICollection<Cliente> ChecarNome(string nome)
         {
-            return _clientes.Where(cliente => cliente.Nome.Contains(nome, StringComparison.OrdinalIgnoreCase));
+            if(string.IsNullOrWhiteSpace(nome)) 
+            {
+                return _cliente.ToImmutableList();
+            }
+            
+            return _clientes.Where(cliente => cliente.Nome.Contains(nome, StringComparison.OrdinalIgnoreCase))
+            
+                .ToImmutableList();
+            
+            
         }
 
     }

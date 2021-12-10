@@ -12,6 +12,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using unifesopoo.Api.Core.Infrastructure.ClienteAgg.Repositories;
+using unifesopoo.Api.Core.Domain.ClienteAgg.Repositories;
+using unifesopoo.Api.Core.Application.ClienteAgg.AppServices;
+
+
+
 
 namespace Av2.api
 {
@@ -37,10 +43,12 @@ namespace Av2.api
             });
 
             services.AddSingleton<IClienteRepositorio,ClienteRepositorio>();
-            services.AddTransient<ProdutoAppService>();
+            services.AddTransient<ClienteAppService>();
+            services.AddSingleton<IClienteParseFactory, ClienteParseFactory>();
+
             // services.AddAuthentication(options =>
             // {
-            //     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            //    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
             //     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             // }).AddJwtBearer(options =>
             // {

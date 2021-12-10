@@ -4,6 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using unifesopoo.Api.Core.Application.ClienteAgg.AppServices;
+using unifesopoo.Api.Controllers.Contracts;
+
+
 
 namespace Av2.api.Controllers
 {
@@ -20,9 +24,9 @@ namespace Av2.api.Controllers
        
        
        [HttpPost]
-       public IActionResult Add(AdicionarCliente adicionarCliente)
+       public IActionResult Add(AdicionarClienteDto adicionarClienteDto)
        {
-           var cliente =_appService.Adicionar(adicionarCliente);
+           var cliente =_appService.Adicionar(adicionarClienteDto);
            return Created(Request.Path, cliente);
        }
        [HttpGet]
@@ -31,5 +35,9 @@ namespace Av2.api.Controllers
            var clientes = _appService.ChecarNome(nome);
            return Ok(clientes);
        }
+
+       
+
+       
     }
 }
